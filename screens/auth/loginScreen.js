@@ -12,7 +12,7 @@ import {
 import bgImage from "../../assets/PhotoBG.png";
 import Btn from "../../components/button";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isFocus, setIsFocus] = useState(false);
@@ -64,6 +64,9 @@ const LoginScreen = () => {
               style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
             />
             <Btn
+              onPress={() => {
+                navigation.navigate("Registration");
+              }}
               title={"Нет аккаунта? Зарегистрироваться"}
               style={{ color: "#1B4371" }}
             />

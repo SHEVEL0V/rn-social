@@ -13,7 +13,7 @@ import bgImage from "../../assets/PhotoBG.png";
 import Avatar from "../../components/avatar";
 import Btn from "../../components/button";
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -83,6 +83,9 @@ const RegistrationScreen = () => {
               style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
             />
             <Btn
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
               title={"Уже есть аккаунт? Войти"}
               style={{ color: "#1B4371" }}
             />

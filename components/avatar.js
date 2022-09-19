@@ -6,12 +6,13 @@ import {
   Text,
   View,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 const Avatar = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.text}>+</Text>
+        <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
       </TouchableOpacity>
     </View>
   );
@@ -38,10 +39,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFFFFF",
     borderWidth: 1,
-    borderColor: "#FF6C00",
     borderRadius: 50,
-    width: 25,
-    height: 25,
+    borderColor: "#FF6C00",
   },
   text: {
     color: "#FF6C00",

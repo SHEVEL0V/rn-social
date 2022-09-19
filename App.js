@@ -1,21 +1,9 @@
 /** @format */
-import AppLoading from "expo-app-loading";
-import {
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ImageBackground,
-  View,
-} from "react-native";
-import LoginScreen from "./screens/auth/loginScreen";
 
-import RegistrationScreen from "./screens/auth/registrationScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import useRoute from "./router";
 
 export default function App() {
-  return (
-    <>
-      <RegistrationScreen />
-      {/* <LoginScreen /> */}
-    </>
-  );
+  const routing = useRoute(true);
+  return <NavigationContainer>{routing}</NavigationContainer>;
 }
