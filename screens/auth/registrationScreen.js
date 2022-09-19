@@ -20,6 +20,14 @@ const RegistrationScreen = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [isSecure, setIsSecure] = useState(true);
 
+  const onRegister = () => {
+    if ((login !== "", email !== "", password !== ""))
+      console.log({ login, email, password });
+    setLogin("");
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -70,6 +78,7 @@ const RegistrationScreen = () => {
               />
             </View>
             <Btn
+              onPress={onRegister}
               title={"Зарегистрироваться"}
               style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
             />
