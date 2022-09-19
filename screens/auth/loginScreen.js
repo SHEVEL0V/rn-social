@@ -9,15 +9,14 @@ import {
   View,
   TextInput,
 } from "react-native";
-import bgImage from "../assets/PhotoBG.png";
-import Avatar from "../components/avatar";
-import Buttton from "../components/button";
+import bgImage from "../../assets/PhotoBG.png";
+import Btn from "../../components/button";
 
-const RegistrationScreen = () => {
-  const [login, setLogin] = useState("");
+const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+  const [isSecure, setIsSecure] = useState(true);
 
   return (
     <TouchableWithoutFeedback
@@ -28,41 +27,46 @@ const RegistrationScreen = () => {
     >
       <ImageBackground style={styles.image} source={bgImage}>
         <View
-          style={{ ...styles.container, paddingBottom: isFocus ? 200 : 60 }}
+          style={{ ...styles.container, paddingBottom: isFocus ? 180 : 120 }}
         >
-          <Avatar />
-          <Text style={styles.title}>Регистрация</Text>
+          <Text style={styles.title}>Войти</Text>
           <View style={styles.form}>
             <TextInput
               style={styles.input}
               onFocus={() => setIsFocus(true)}
-              placeholder="Логин"
-              textAlign={"center"}
-              value={login}
-              onChangeText={(value) => setLogin(value)}
-            />
-            <TextInput
-              style={styles.input}
-              onFocus={() => setIsFocus(true)}
               placeholder="Адрес электронной почты"
-              textAlign={"center"}
+              autoComplete="email"
               value={email}
               onChangeText={(value) => setEmail(value)}
             />
-            <TextInput
-              style={{ ...styles.input, marginBottom: 43 }}
-              onFocus={() => setIsFocus(true)}
-              placeholder="Пароль"
-              textAlign={"center"}
-              value={password}
-              onChangeText={(value) => setPassword(value)}
-            />
-            <Buttton
+            <View style={styles.containerPass}>
+              <TextInput
+                style={{ ...styles.input, marginBottom: 43 }}
+                onFocus={() => setIsFocus(true)}
+                placeholder="Пароль"
+                secureTextEntry={isSecure}
+                value={password}
+                onChangeText={(value) => setPassword(value)}
+              />
+              <Btn
+                onPress={() => setIsSecure(!isSecure)}
+                title={isSecure ? "Показать" : "Скрыть"}
+                style={{
+                  color: "#1B4371",
+                  position: "absolute",
+                  right: 12,
+                  top: 8,
+                }}
+              />
+            </View>
+            <Btn
               title={"Зарегистрироваться"}
-              bgColor={"#FF6C00"}
-              color={"#FFFFFF"}
+              style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
             />
-            <Buttton title={"Уже есть аккаунт? Войти"} color={"#1B4371"} />
+            <Btn
+              title={"Нет аккаунта? Зарегистрироваться"}
+              style={{ color: "#1B4371" }}
+            />
           </View>
         </View>
       </ImageBackground>
@@ -70,19 +74,19 @@ const RegistrationScreen = () => {
   );
 };
 
-export default RegistrationScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
   container: {
     marginTop: "auto",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: "#fff",
-  },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
   },
   title: {
     marginTop: 32,
@@ -93,6 +97,9 @@ const styles = StyleSheet.create({
   },
   form: {
     marginHorizontal: 16,
+  },
+  containerPass: {
+    position: "reletave",
   },
   input: {
     marginBottom: 15,

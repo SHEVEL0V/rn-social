@@ -8,20 +8,15 @@ import {
   Text,
 } from "react-native";
 
-const Buttton = ({ title, bgColor, color }) => {
+const Btn = ({ title, style, onPress }) => {
   return (
-    <TouchableOpacity
-      style={{ ...styles.button, backgroundColor: bgColor }}
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
-      <Text style={{ ...styles.btnTitle, color: color }}>{title}</Text>
+    <TouchableOpacity style={{ ...styles.button, ...style }} onPress={onPress}>
+      <Text style={{ ...styles.btnTitle, ...style }}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
-export default Buttton;
+export default Btn;
 
 const styles = StyleSheet.create({
   button: {
