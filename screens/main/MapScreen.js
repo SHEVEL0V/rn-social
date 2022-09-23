@@ -1,5 +1,5 @@
 /** @format */
-
+import MapView from "react-native-maps";
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -12,10 +12,21 @@ import {
 
 const MapScreen = () => {
   return (
-    <View>
-      <Text>MapScreen</Text>
+    <View style={styles.container}>
+      <MapView style={styles.map} />
     </View>
   );
 };
 
 export default MapScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  map: {
+    flex: 1,
+  },
+});

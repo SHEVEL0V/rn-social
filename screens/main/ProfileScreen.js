@@ -9,21 +9,18 @@ import {
   View,
   TextInput,
 } from "react-native";
+import Container from "../../components/container";
 
 const ProfileScreen = () => {
   return (
-    <View style={styles.container}>
+    <Container>
       <Text>ProfileScreen</Text>
-    </View>
+    </Container>
   );
 };
 
 export default ProfileScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {},
+// });

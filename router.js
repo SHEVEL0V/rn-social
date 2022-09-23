@@ -1,11 +1,12 @@
 /** @format */
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import { StyleSheet, View } from "react-native";
+import Home from "./screens/main/Home";
 import LoginScreen from "./screens/auth/loginScreen";
 import RegistrationScreen from "./screens/auth/registrationScreen";
-import HomeScreen from "./screens/main/HomeScreen";
 import PostsScreen from "./screens/main/PostsScreen";
+import CreatePostsScreen from "./screens/main/CreatePostsScreen";
 import ProfileScreen from "./screens/main/ProfileScreen";
 // icon
 import { AntDesign } from "@expo/vector-icons";
@@ -19,21 +20,33 @@ const useRoute = (isAuth) => {
       <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={Home}
           options={{
             headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => (
-              <AntDesign name="appstore-o" size={24} color={color} />
+            tabBarIcon: ({ focused, color }) => (
+              <View style={focused && styles.iconContainer}>
+                <AntDesign
+                  name="appstore-o"
+                  size={24}
+                  color={focused ? "#fff" : color}
+                />
+              </View>
             ),
           }}
         />
         <Tab.Screen
-          name="Posts"
-          component={PostsScreen}
+          name="Публикации"
+          component={Home}
           options={{
             headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => (
-              <AntDesign name="pluscircleo" size={24} color={color} />
+            tabBarIcon: ({ focused, color }) => (
+              <View style={focused && styles.iconContainer}>
+                <Feather
+                  name="plus"
+                  size={24}
+                  color={focused ? "#fff" : color}
+                />
+              </View>
             ),
           }}
         />
@@ -42,8 +55,14 @@ const useRoute = (isAuth) => {
           component={ProfileScreen}
           options={{
             headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => (
-              <Feather name="user" size={24} color={color} />
+            tabBarIcon: ({ focused, color }) => (
+              <View style={focused && styles.iconContainer}>
+                <Feather
+                  name="user"
+                  size={24}
+                  color={focused ? "#fff" : color}
+                />
+              </View>
             ),
           }}
         />
@@ -68,3 +87,14 @@ const useRoute = (isAuth) => {
 };
 
 export default useRoute;
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 70,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#FF6C00",
+  },
+});
