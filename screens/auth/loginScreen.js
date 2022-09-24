@@ -1,5 +1,7 @@
 /** @format */
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../../redux/auth/operations";
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -17,6 +19,13 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [isSecure, setIsSecure] = useState(true);
+  const dispatch = useDispatch();
+
+  const login = () => {
+    if ((email !== "", password !== "")) {
+      dispatch(loginUser({ email, password }));
+    }
+  };
 
   return (
     <TouchableWithoutFeedback
@@ -60,6 +69,7 @@ const LoginScreen = ({ navigation }) => {
               />
             </View>
             <Btn
+              onPress={login}
               title={"Зарегистрироваться"}
               style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
             />

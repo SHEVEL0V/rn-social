@@ -13,6 +13,7 @@ import {
   FlatList,
   Button,
 } from "react-native";
+import AvatarMini from "../../components/avatarMini";
 import Container from "../../components/container";
 import ItemPost from "../../components/itemPost";
 
@@ -35,15 +36,7 @@ const PostsScreen = ({ navigation }) => {
   const renderItem = (item) => <ItemPost navigation={navigation} />;
   return (
     <Container>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate("Создать публикацию");
-        }}
-      >
-        <View style={styles.avatarContainer}></View>
-        <Text style={styles.text}>PostsScreen</Text>
-      </TouchableOpacity>
+      <AvatarMini />
       <FlatList
         style={{ marginTop: 10 }}
         data={DATA}
@@ -56,18 +49,4 @@ const PostsScreen = ({ navigation }) => {
 
 export default PostsScreen;
 
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  avatarContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 16,
-    backgroundColor: "#FF6C00",
-  },
-  text: {
-    marginLeft: 10,
-  },
-});
+const styles = StyleSheet.create({});

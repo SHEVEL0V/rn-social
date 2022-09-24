@@ -7,8 +7,12 @@ import PostsScreen from "./PostsScreen";
 import CommentsScreen from "./CommentsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import BtnQuit from "../../components/btnQuit";
+import { outUser } from "../../redux/auth/operations";
+import { useSelector, useDispatch } from "react-redux";
+outUser;
 
 const Home = () => {
+  const dispatch = useDispatch();
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
@@ -19,7 +23,7 @@ const Home = () => {
           headerRight: () => (
             <BtnQuit
               onPress={() => {
-                console.log("Quit auth");
+                dispatch(outUser());
               }}
             />
           ),
@@ -45,4 +49,3 @@ const Home = () => {
   );
 };
 export default Home;
-

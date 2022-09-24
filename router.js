@@ -73,13 +73,13 @@ const useRoute = (isAuth) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Registration"
-        component={RegistrationScreen}
+        name="Login"
+        component={LoginScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Login"
-        component={LoginScreen}
+        name="Registration"
+        component={RegistrationScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -12,20 +12,20 @@ import {
 import bgImage from "../../assets/PhotoBG.png";
 import Avatar from "../../components/avatar";
 import Btn from "../../components/button";
+import { useSelector, useDispatch } from "react-redux";
+import { signupUser } from "../../redux/auth/operations";
 
 const RegistrationScreen = ({ navigation }) => {
-  const [login, setLogin] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [isSecure, setIsSecure] = useState(true);
+  const dispatch = useDispatch();
 
   const onRegister = () => {
-    if ((login !== "", email !== "", password !== ""))
-      console.log({ login, email, password });
-    setLogin("");
-    setEmail("");
-    setPassword("");
+    if ((name !== "", email !== "", password !== ""))
+      dispatch(signupUser({ email, password, name }));
   };
 
   return (
@@ -46,8 +46,8 @@ const RegistrationScreen = ({ navigation }) => {
               style={styles.input}
               onFocus={() => setIsFocus(true)}
               placeholder="Логин"
-              value={login}
-              onChangeText={(value) => setLogin(value)}
+              value={name}
+              onChangeText={(value) => setName(value)}
             />
             <TextInput
               style={styles.input}
