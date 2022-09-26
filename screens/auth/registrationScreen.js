@@ -13,7 +13,7 @@ import bgImage from "../../assets/PhotoBG.png";
 import Avatar from "../../components/avatar";
 import Btn from "../../components/button";
 import { useSelector, useDispatch } from "react-redux";
-import { signupUser } from "../../redux/auth/operations";
+import { signUpUser } from "../../redux/auth/operations";
 
 const RegistrationScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -25,7 +25,7 @@ const RegistrationScreen = ({ navigation }) => {
 
   const onRegister = () => {
     if ((name !== "", email !== "", password !== ""))
-      dispatch(signupUser({ email, password, name }));
+      dispatch(signUpUser({ email, password, name }));
   };
 
   return (

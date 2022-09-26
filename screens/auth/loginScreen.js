@@ -1,7 +1,7 @@
 /** @format */
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser } from "../../redux/auth/operations";
+import { signInUser } from "../../redux/auth/operations";
 import {
   StyleSheet,
   TouchableWithoutFeedback,
@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
 
   const login = () => {
     if ((email !== "", password !== "")) {
-      dispatch(loginUser({ email, password }));
+      dispatch(signInUser({ email, password }));
     }
   };
 

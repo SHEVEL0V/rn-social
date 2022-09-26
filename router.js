@@ -36,9 +36,9 @@ const useRoute = (isAuth) => {
         />
         <Tab.Screen
           name="Публикации"
-          component={Home}
+          component={CreatePostsScreen}
           options={{
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({ focused, color }) => (
               <View style={focused && styles.iconContainer}>
                 <Feather

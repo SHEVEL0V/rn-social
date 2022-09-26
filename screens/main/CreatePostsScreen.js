@@ -1,5 +1,5 @@
 /** @format */
-import { Camera } from "expo-camera";
+import { Camera, CameraType } from "expo-camera";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { TextInput, StyleSheet, ImageBackground, View } from "react-native";
@@ -8,28 +8,42 @@ import BtnCamera from "../../components/btnCamera";
 import BtnNavigate from "../../components/btnNavigate";
 import Container from "../../components/container";
 
+import { useSelector, useDispatch } from "react-redux";
+import { addUserPost } from "../../redux/posts/operations";
+
 const CreatePostsScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [isOpenCamera, setIsOpenCamera] = useState(false);
-  const [camera, setCamera] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [namePhoto, setNamePhoto] = useState();
+  const [camera, setCamera] = useState(null);
+  const [photo, setPhoto] = useState(null);
+  const [namePhoto, setNamePhoto] = useState(null);
+  const [nameLocation, setNameLocation] = useState(null);
   const [location, setLocation] = useState();
 
   const takePhoto = async () => {
     const { uri } = await camera.takePictureAsync();
+    const { coords } = await Location.getCurrentPositionAsync({});
+
+    setLocation(coords);
     setPhoto(uri);
   };
+  const isActive = () => (namePhoto && nameLocation && photo ? true : false);
 
-  useEffect(() => {
-    if (photo !== "")
-      async () => setLocation(await Location.getCurrentPositionAsync({}));
-  }, [photo]);
+  const uploadPhotoToServer = async () => {};
+
+  const cteatePost = () => {
+    if (isActive()) {
+      dispatch(addUserPost(namePhoto, nameLocation, location));
+    }
+
+    // navigation.navigate("Публикации");
+  };
 
   return (
     <Container>
       <View style={styles.cameraContainer}>
         {isOpenCamera ? (
-          <Camera style={styles.camera} ref={setCamera}>
+          <Camera style={styles.camera} ref={setCamera} type={CameraType.back}>
             <BtnCamera
               onPress={() => {
                 takePhoto(), setIsOpenCamera(false);
@@ -54,16 +68,19 @@ const CreatePostsScreen = ({ navigation }) => {
       />
       <View style={styles.mapInput}>
         <BtnNavigate onPress={() => navigation.navigate("Map")} />
-        <TextInput placeholder="  Местность..." style={{ fontSize: 16 }} />
+        <TextInput
+          placeholder="  Местность..."
+          style={{ fontSize: 16 }}
+          value={nameLocation}
+          onChangeText={(value) => setNameLocation(value)}
+        />
       </View>
       <Btn
-        onPress={() => {
-          navigation.navigate("Публикации");
-        }}
+        onPress={cteatePost}
         title={"Опубликовать"}
         style={{
-          color: true ? "#FFFFFF" : "#BDBDBD",
-          backgroundColor: true ? "#FF6C00" : "#E5E5E5",
+          color: isActive() ? "#FFFFFF" : "#BDBDBD",
+          backgroundColor: isActive() ? "#FF6C00" : "#E5E5E5",
         }}
       />
     </Container>

@@ -1,7 +1,7 @@
 /** @format */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { signupUser, loginUser, outUser } from "./operations";
+import { signupUser, loginUser, outUser, isLoginUser } from "./operations";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -10,22 +10,24 @@ const initialState = {
 };
 
 export const authSlice = createSlice({
-  name: "counter",
+  name: "auth",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(signupUser.fulfilled, (state, action) => {
-        state.isAuth = true;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isAuth = true;
-        state.user = action.payload;
-      })
-      .addCase(outUser.fulfilled, (state, action) => {
-        state.isAuth = false;
-      });
+  reducers: {
+    signap(state, { payload }) {
+      state.isAuth = payload.isAuth;
+    },
+    login(state, { payload }) {
+      state.isAuth = payload.isAuth;
+      state.user = payload.user;
+    },
+    authentication(state, { payload }) {
+      state.isAuth = payload.isAuth;
+      state.user = payload.user;
+    },
+    out(state, { payload }) {
+      state.isAuth = false;
+    },
   },
 });
-
+export const { signap, login, authentication, out } = authSlice.actions;
 export default authSlice.reducer;

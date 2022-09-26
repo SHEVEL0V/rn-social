@@ -1,6 +1,7 @@
 /** @format */
 
 import { Background } from "@react-navigation/elements";
+import { useEffect, useState } from "react";
 
 import {
   StyleSheet,
@@ -13,33 +14,30 @@ import {
   FlatList,
   Button,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import AvatarMini from "../../components/avatarMini";
 import Container from "../../components/container";
 import ItemPost from "../../components/itemPost";
-
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-];
+import { getUserPost } from "../../redux/posts/operations";
 
 const PostsScreen = ({ navigation }) => {
-  const renderItem = (item) => <ItemPost navigation={navigation} />;
+  const posts = useSelector((store) => store.userPosts.data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserPost());
+  }, []);
+
+  const renderItem = ({ item }) => (
+    <ItemPost posts={posts} data={item} navigation={navigation} />
+  );
   return (
     <Container>
-      <AvatarMini />
+      <AvatarMini navigation={navigation} />
+
       <FlatList
-        style={{ marginTop: 10 }}
-        data={DATA}
+        style={{ marginTop: 10, marginHorizontal: -16 }}
+        data={posts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

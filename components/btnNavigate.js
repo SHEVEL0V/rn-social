@@ -10,7 +10,14 @@ const BtnNavigate = ({ onPress, title }) => {
       style={{ marginRight: 10, flexDirection: "row" }}
     >
       <FontAwesome5 name="map-marker-alt" size={18} color="#BDBDBD" />
-      <Text style={{ marginLeft: 10, fontSize: 16 }}>{title}</Text>
+      <Text
+        style={{
+          marginLeft: 10,
+          fontSize: 16,
+        }}
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
