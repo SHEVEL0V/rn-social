@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   where,
   query,
@@ -16,15 +15,13 @@ import {
   doc,
 } from "firebase/firestore";
 import { firebaseConfig } from "../../firebase/config";
-import { useSelector, useDispatch } from "react-redux";
 import { setPost, setComment } from "./slice";
 
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-const storage = getStorage(app);
+export const storage = getStorage(app);
 const db = getFirestore(app);
-const uid = auth.currentUser?.uid;
 
 //--------------------------------------------------------------
 export const getUserComment = (id) => async (dispatch, getState) => {

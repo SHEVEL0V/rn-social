@@ -4,7 +4,6 @@ import { TouchableOpacity, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 const BtnPost = ({ onPress, qty }) => {
-  
   return (
     <TouchableOpacity
       onPress={onPress}

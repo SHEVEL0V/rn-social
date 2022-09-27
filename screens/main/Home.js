@@ -6,9 +6,9 @@ import MapScreen from "./MapScreen";
 import PostsScreen from "./PostsScreen";
 import CommentsScreen from "./CommentsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
-import BtnQuit from "../../components/btnQuit";
+import BtnQuit from "../../components/button/btnQuit";
 import { outUser } from "../../redux/auth/operations";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 outUser;
 
 const Home = () => {
@@ -17,9 +17,10 @@ const Home = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Публикации"
+        name="Posts"
         component={PostsScreen}
         options={{
+          title: "Публикации",
           headerRight: () => (
             <BtnQuit
               onPress={() => {
@@ -30,20 +31,16 @@ const Home = () => {
           headerRightContainerStyle: { paddingRight: 10 },
         }}
       />
-      <Stack.Screen
-        name="Создать публикацию"
-        component={CreatePostsScreen}
-        // options={{ headerShown: false }}
-      />
+
       <Stack.Screen
         name="Map"
         component={MapScreen}
-        // options={{ headerShown: false }}
+        options={{ title: "Карта" }}
       />
       <Stack.Screen
-        name="Комментарии"
+        name="Comments"
         component={CommentsScreen}
-        options={{ tabBarShown: false }}
+        options={{ title: "Комментарии", tabBarShown: false }}
       />
     </Stack.Navigator>
   );

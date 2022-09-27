@@ -1,65 +1,50 @@
 /** @format */
-import { Camera, CameraType } from "expo-camera";
-import * as Location from "expo-location";
-import { useState, useEffect } from "react";
-import { TextInput, StyleSheet, ImageBackground, View } from "react-native";
-import Btn from "../../components/button";
-import BtnCamera from "../../components/btnCamera";
-import BtnNavigate from "../../components/btnNavigate";
+import * as FileSystem from "expo-file-system";
+import { getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
+import { useState } from "react";
+import { TextInput, StyleSheet, View } from "react-native";
+import Btn from "../../components/button/button";
+import BtnNavigate from "../../components/button/btnNavigate";
 import Container from "../../components/container";
-
-import { useSelector, useDispatch } from "react-redux";
-import { addUserPost } from "../../redux/posts/operations";
+import { useDispatch } from "react-redux";
+import { addUserPost, storage } from "../../redux/posts/operations";
+import CameraCont from "../../components/camera";
+import BtnDelete from "../../components/button/btnDelete";
+import img from "../../image/pexels-photo-1563356.jpeg";
 
 const CreatePostsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [isOpenCamera, setIsOpenCamera] = useState(false);
-  const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
+  const [location, setLocation] = useState(null);
   const [namePhoto, setNamePhoto] = useState(null);
   const [nameLocation, setNameLocation] = useState(null);
-  const [location, setLocation] = useState();
 
-  const takePhoto = async () => {
-    const { uri } = await camera.takePictureAsync();
-    const { coords } = await Location.getCurrentPositionAsync({});
-
-    setLocation(coords);
-    setPhoto(uri);
-  };
   const isActive = () => (namePhoto && nameLocation && photo ? true : false);
 
-  const uploadPhotoToServer = async () => {};
+  const uploadPhotoToServer = async () => {
+    const file = await FileSystem.readAsStringAsync(photo, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+  };
 
   const cteatePost = () => {
     if (isActive()) {
       dispatch(addUserPost(namePhoto, nameLocation, location));
+      removePost();
+      navigation.navigate("Home", { screen: "Posts" });
     }
+  };
 
-    // navigation.navigate("Публикации");
+  const removePost = () => {
+    setPhoto(null);
+    setLocation(null);
+    setNamePhoto(null);
+    setNameLocation(null);
   };
 
   return (
     <Container>
-      <View style={styles.cameraContainer}>
-        {isOpenCamera ? (
-          <Camera style={styles.camera} ref={setCamera} type={CameraType.back}>
-            <BtnCamera
-              onPress={() => {
-                takePhoto(), setIsOpenCamera(false);
-              }}
-            />
-          </Camera>
-        ) : (
-          <ImageBackground style={styles.image} source={{ uri: photo }}>
-            <BtnCamera
-              style={{ backgroundColor: "#fff" }}
-              onPress={() => setIsOpenCamera(true)}
-            />
-          </ImageBackground>
-        )}
-      </View>
-
+      <CameraCont setLocation={setLocation} setPhoto={setPhoto} photo={photo} />
       <TextInput
         style={styles.input}
         placeholder="Название..."
@@ -67,7 +52,7 @@ const CreatePostsScreen = ({ navigation }) => {
         onChangeText={(value) => setNamePhoto(value)}
       />
       <View style={styles.mapInput}>
-        <BtnNavigate onPress={() => navigation.navigate("Map")} />
+        <BtnNavigate onPress={() => {}} />
         <TextInput
           placeholder="  Местность..."
           style={{ fontSize: 16 }}
@@ -83,6 +68,7 @@ const CreatePostsScreen = ({ navigation }) => {
           backgroundColor: isActive() ? "#FF6C00" : "#E5E5E5",
         }}
       />
+      <BtnDelete onPress={removePost} />
     </Container>
   );
 };
@@ -90,20 +76,6 @@ const CreatePostsScreen = ({ navigation }) => {
 export default CreatePostsScreen;
 
 const styles = StyleSheet.create({
-  cameraContainer: {
-    height: 240,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#E8E8E8",
-    borderRadius: 8,
-  },
-  camera: {
-    height: "100%",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   input: {
     height: 66,
     borderBottomWidth: 1,

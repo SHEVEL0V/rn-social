@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
-import BtnAdd from "../components/btnAdd";
+import BtnAdd from "./button/btnAdd";
 
 const InputComment = ({ addComment }) => {
   const [value, setValue] = useState("");

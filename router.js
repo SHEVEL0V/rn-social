@@ -35,9 +35,10 @@ const useRoute = (isAuth) => {
           }}
         />
         <Tab.Screen
-          name="Публикации"
+          name="CreatePost"
           component={CreatePostsScreen}
           options={{
+            title: "Создать публикацию",
             headerShown: true,
             tabBarIcon: ({ focused, color }) => (
               <View style={focused && styles.iconContainer}>
