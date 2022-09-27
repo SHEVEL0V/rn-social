@@ -25,14 +25,21 @@ const CreatePostsScreen = ({ navigation }) => {
     const file = await FileSystem.readAsStringAsync(photo, {
       encoding: FileSystem.EncodingType.Base64,
     });
+
+    const storageRef = ref(storage, "img.jpeg");
+
+    uploadString(storageRef, file).then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+    });
   };
 
   const cteatePost = () => {
-    if (isActive()) {
-      dispatch(addUserPost(namePhoto, nameLocation, location));
-      removePost();
-      navigation.navigate("Home", { screen: "Posts" });
-    }
+    uploadPhotoToServer();
+    // if (isActive()) {
+    //   dispatch(addUserPost(namePhoto, nameLocation, location));
+    //   removePost();
+    //   navigation.navigate("Home", { screen: "Posts" });
+    // }
   };
 
   const removePost = () => {
