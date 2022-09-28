@@ -1,6 +1,12 @@
 /** @format */
-import * as FileSystem from "expo-file-system";
-import { getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
+import * as ImagePicker from "expo-image-picker";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadString,
+  getDownloadURL,
+} from "firebase/storage";
 import { useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
 import Btn from "../../components/button/button";
@@ -11,6 +17,8 @@ import { addUserPost, storage } from "../../redux/posts/operations";
 import CameraCont from "../../components/camera";
 import BtnDelete from "../../components/button/btnDelete";
 import img from "../../image/pexels-photo-1563356.jpeg";
+import { async } from "@firebase/util";
+import { uploadImage } from "../../firebase/operations";
 
 const CreatePostsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -21,25 +29,13 @@ const CreatePostsScreen = ({ navigation }) => {
 
   const isActive = () => (namePhoto && nameLocation && photo ? true : false);
 
-  const uploadPhotoToServer = async () => {
-    const file = await FileSystem.readAsStringAsync(photo, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-
-    const storageRef = ref(storage, "img.jpeg");
-
-    uploadString(storageRef, file).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
-    });
-  };
-
-  const cteatePost = () => {
-    uploadPhotoToServer();
-    // if (isActive()) {
-    //   dispatch(addUserPost(namePhoto, nameLocation, location));
-    //   removePost();
-    //   navigation.navigate("Home", { screen: "Posts" });
-    // }
+  const cteatePost = async () => {
+    if (isActive()) {
+      const urlImage = await uploadImage(photo);
+      dispatch(addUserPost(namePhoto, nameLocation, location, urlImage));
+      removePost();
+      navigation.navigate("Home", { screen: "Posts" });
+    }
   };
 
   const removePost = () => {

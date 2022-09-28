@@ -1,8 +1,5 @@
 /** @format */
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getStorage } from "firebase/storage";
-import { getAuth } from "firebase/auth";
+
 import {
   where,
   query,
@@ -14,14 +11,9 @@ import {
   setDoc,
   doc,
 } from "firebase/firestore";
-import { firebaseConfig } from "../../firebase/config";
+
+import { auth, db } from "../../firebase/config";
 import { setPost, setComment } from "./slice";
-
-const app = initializeApp(firebaseConfig);
-
-export const auth = getAuth(app);
-export const storage = getStorage(app);
-const db = getFirestore(app);
 
 //--------------------------------------------------------------
 export const getUserComment = (id) => async (dispatch, getState) => {
@@ -49,12 +41,13 @@ export const writeUserComment =
 
 //--------------------------------------------------------------
 export const addUserPost =
-  (namePhoto, nameLocation, location = "") =>
+  (namePhoto, nameLocation, location = "", urlImage) =>
   async (dispatch, getState) => {
     const uid = auth.currentUser?.uid;
     await addDoc(collection(db, "posts"), {
       uid,
       namePhoto,
+      urlImage,
       nameLocation,
       location,
       comments: [],
@@ -75,3 +68,5 @@ export const getUserPost = () => async (dispatch, getState) => {
   console.log("get posts ok");
   dispatch(setPost(data));
 };
+
+//--------------------------------------------------------------

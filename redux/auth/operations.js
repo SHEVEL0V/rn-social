@@ -1,5 +1,4 @@
 /** @format */
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,7 +6,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../posts/operations";
+import { auth } from "../../firebase/config";
 import { signap, login, authentication, out } from "./slice";
 
 //-------------------------------------------------------------------------
