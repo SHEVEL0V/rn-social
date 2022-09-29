@@ -6,13 +6,21 @@ import {
   Text,
   View,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
-const Avatar = () => {
+const Avatar = ({ onPress, url, uri }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.text}>+</Text>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <AntDesign
+          name="pluscircleo"
+          size={25}
+          color={url ? "#BDBDBD" : "#FF6C00"}
+        />
       </TouchableOpacity>
+      <View style={styles.containerImg}>
+        <ImageBackground style={styles.img} source={uri ? { uri } : { url }} />
+      </View>
     </View>
   );
 };
@@ -27,21 +35,25 @@ const styles = StyleSheet.create({
     marginTop: -60,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  containerImg: {
+    overflow: "hidden",
+    width: "100%",
+    height: "100%",
     borderRadius: 16,
     backgroundColor: "#F6F6F6",
   },
+  img: { flex: 1 },
   button: {
+    zIndex: 10,
     position: "absolute",
     right: -12,
     top: 80,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#FF6C00",
-    borderRadius: 50,
-    width: 25,
-    height: 25,
+
+    borderRadius: "50%",
   },
   text: {
     color: "#FF6C00",
