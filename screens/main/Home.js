@@ -1,15 +1,13 @@
 /** @format */
-import React, { useState } from "react";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import MapScreen from "./MapScreen";
 import PostsScreen from "./PostsScreen";
 import CommentsScreen from "./CommentsScreen";
-import CreatePostsScreen from "./CreatePostsScreen";
 import BtnQuit from "../../components/button/btnQuit";
 import { outUser } from "../../redux/auth/operations";
 import { useDispatch } from "react-redux";
-outUser;
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -35,12 +33,15 @@ const Home = () => {
       <Stack.Screen
         name="Map"
         component={MapScreen}
-        options={{ title: "Карта" }}
+        options={{ title: "Карта", headerBackTitleVisible: false }}
       />
       <Stack.Screen
         name="Comments"
         component={CommentsScreen}
-        options={{ title: "Комментарии", tabBarShown: false }}
+        options={{
+          title: "Комментарии",
+          headerBackTitleVisible: false,
+        }}
       />
     </Stack.Navigator>
   );

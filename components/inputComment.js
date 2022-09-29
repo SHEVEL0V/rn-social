@@ -4,14 +4,19 @@ import { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import BtnAdd from "./button/btnAdd";
 
-const InputComment = ({ addComment }) => {
+const InputComment = ({ setisActive, addComment }) => {
+  const [color, setColor] = useState("#E8E8E8");
   const [value, setValue] = useState("");
 
   return (
-    <View style={styles.input}>
+    <View style={{ ...styles.input, borderColor: color }}>
       <TextInput
         placeholder="Комментировать..."
         value={value}
+        onBlur={() => setColor("#E8E8E8")}
+        onFocus={() => {
+          setisActive(true), setColor("#FF6C00");
+        }}
         onChangeText={(value) => setValue(value)}
       />
       <BtnAdd
@@ -29,9 +34,9 @@ const styles = StyleSheet.create({
   postContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
   },
   input: {
+    marginTop: 30,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -40,7 +45,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 1,
     backgroundColor: "#F6F6F6",
-    borderColor: "#E8E8E8",
     borderRadius: 100,
   },
 });

@@ -1,6 +1,4 @@
 /** @format */
-import { useState } from "react";
-import * as ImagePicker from "expo-image-picker";
 import {
   StyleSheet,
   ImageBackground,
@@ -10,36 +8,18 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const Avatar = () => {
-  const [image, setImage] = useState(null);
-
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
-  console.log(image);
+const Avatar = ({ onPress, url, uri }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={() => pickImage()}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
         <AntDesign
           name="pluscircleo"
           size={25}
-          color={image ? "#BDBDBD" : "#FF6C00"}
+          color={url ? "#BDBDBD" : "#FF6C00"}
         />
       </TouchableOpacity>
       <View style={styles.containerImg}>
-        <ImageBackground
-          style={styles.img}
-          source={{ uri: image }}
-        ></ImageBackground>
+        <ImageBackground style={styles.img} source={uri ? { uri } : { url }} />
       </View>
     </View>
   );

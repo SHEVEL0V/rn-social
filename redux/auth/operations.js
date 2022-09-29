@@ -7,16 +7,18 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { signap, login, authentication, out } from "./slice";
+import { uploadImage } from "../../firebase/operationsStore";
+import { signap, login, authentication, updateUserProfile, out } from "./slice";
 
 //-------------------------------------------------------------------------
 export const signUpUser =
-  ({ email, password, name }) =>
+  ({ email, password, name, photoUri }) =>
   async (dispatch, getState) => {
     try {
+      const photoURL = await uploadImage(photoUri);
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
-      await updateProfile(user, { displayName: name });
+      await updateProfile(user, { displayName: name, photoURL });
       dispatch(signap({ isAuth: true }));
     } catch (err) {
       dispatch(signap(false));
@@ -48,6 +50,17 @@ export const authUser = () => (dispatch, getState) => {
       );
     }
   });
+};
+
+//-------------------------------------------------------------------------
+export const updateUserAvatar = (file) => async (dispatch, getState) => {
+  const photo = await uploadImage(file);
+  await updateProfile(auth.currentUser, {
+    photoURL: photo,
+  });
+  const { displayName, photoURL, email, uid } = auth.currentUser;
+  dispatch(updateUserProfile({ user: { displayName, photoURL, email, uid } }));
+  console.log("updateAvatar ok");
 };
 
 //-------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import Posts from "../../components/posts";
 
 const PostsScreen = ({ navigation }) => {
   return (
-    <Container>
+    <Container margin={true}>
       <AvatarMini navigation={navigation} />
       <Posts navigation={navigation} />
     </Container>

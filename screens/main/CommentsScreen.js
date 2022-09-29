@@ -1,21 +1,17 @@
 /** @format */
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  ImageBackground,
-  FlatList,
-  View,
-  TextInput,
-} from "react-native";
+import { StyleSheet, ImageBackground, FlatList, Keyboard } from "react-native";
 import Container from "../../components/container";
 import ItemComment from "../../components/itemComment";
 import { getUserComment, writeUserComment } from "../../redux/posts/operations";
-import image from "../../image/pexels-photo-1563356.jpeg";
 import InputComment from "../../components/inputComment";
 
 const CommentsScreen = ({ route }) => {
-  const { comments: data } = useSelector((store) => store.userPosts.post);
+  const [isActive, setisActive] = useState(false);
+  const { comments: data, imageURL } = useSelector(
+    (store) => store.userPosts.post
+  );
   const { id } = route.params;
   const dispatch = useDispatch();
 
@@ -24,6 +20,11 @@ const CommentsScreen = ({ route }) => {
   }, []);
 
   const addComment = (value) => {
+    if (value === "") {
+      setisActive(false);
+      Keyboard.dismiss();
+      return;
+    }
     dispatch(writeUserComment({ id, value, data }));
     dispatch(getUserComment(id));
   };
@@ -31,15 +32,17 @@ const CommentsScreen = ({ route }) => {
   const renderItem = ({ item }) => <ItemComment data={item} />;
 
   return (
-    <Container>
-      <ImageBackground source={image} style={styles.img} />
-      <FlatList
-        style={{ marginTop: 32 }}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.date}
-      />
-      <InputComment addComment={addComment} />
+    <Container margin={true}>
+      <ImageBackground source={{ uri: imageURL }} style={styles.img} />
+      {isActive || (
+        <FlatList
+          style={{ marginTop: 32 }}
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.date}
+        />
+      )}
+      <InputComment setisActive={setisActive} addComment={addComment} />
     </Container>
   );
 };
@@ -53,5 +56,4 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 8,
   },
-  name: { marginTop: 8, color: "#212121", fontSize: 16 },
 });

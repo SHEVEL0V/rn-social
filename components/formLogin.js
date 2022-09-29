@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signInUser } from "../redux/auth/operations";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Btn from "./button/button";
+import Input from "./input";
 
 const FormLogin = ({ navigation, setIsFocus, isFocus }) => {
   const [password, setPassword] = useState("");
@@ -18,25 +19,26 @@ const FormLogin = ({ navigation, setIsFocus, isFocus }) => {
   };
 
   return (
-    <View style={{ ...styles.container, paddingBottom: isFocus ? 180 : 120 }}>
+    <View style={{ ...styles.container, paddingBottom: isFocus ? 0 : 120 }}>
       <Text style={styles.title}>Войти</Text>
       <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          onFocus={() => setIsFocus(true)}
+        <Input
+          style={{}}
+          onFocus={setIsFocus}
           placeholder="Адрес электронной почты"
-          autoComplete="email"
+          autoCompleteType="email"
           value={email}
           onChangeText={(value) => setEmail(value)}
         />
         <View style={styles.containerPass}>
-          <TextInput
-            style={{ ...styles.input, marginBottom: 43 }}
+          <Input
+            style={{}}
             onFocus={() => setIsFocus(true)}
             placeholder="Пароль"
-            secureTextEntry={isSecure}
+            autoCompleteType="password"
             value={password}
             onChangeText={(value) => setPassword(value)}
+            isSecure={isSecure}
           />
           <Btn
             onPress={() => setIsSecure(!isSecure)}
@@ -49,18 +51,22 @@ const FormLogin = ({ navigation, setIsFocus, isFocus }) => {
             }}
           />
         </View>
-        <Btn
-          onPress={login}
-          title={"Войти"}
-          style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
-        />
-        <Btn
-          onPress={() => {
-            navigation.navigate("Registration");
-          }}
-          title={"Нет аккаунта? Зарегистрироваться"}
-          style={{ color: "#1B4371" }}
-        />
+        {isFocus || (
+          <View View style={{ marginTop: 43 }}>
+            <Btn
+              onPress={login}
+              title={"Войти"}
+              style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
+            />
+            <Btn
+              onPress={() => {
+                navigation.navigate("Registration");
+              }}
+              title={"Нет аккаунта? Зарегистрироваться"}
+              style={{ color: "#1B4371" }}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -87,15 +93,5 @@ const styles = StyleSheet.create({
   },
   containerPass: {
     position: "reletave",
-  },
-  input: {
-    marginBottom: 15,
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: 8,
-    backgroundColor: "#F6F6F6",
-    borderColor: "#E8E8E8",
-    fontSize: 16,
-    color: "#212121",
   },
 });

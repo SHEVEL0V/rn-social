@@ -12,15 +12,23 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shevelov.ExpoProject"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
       }
     },
-    "web": {}
+    "web": {},
+    "extra": {
+      "eas": {
+        "projectId": "acdec518-cd03-4623-9270-a7ba0278a614"
+      }
+    }
   }
 }

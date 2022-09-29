@@ -41,13 +41,13 @@ export const writeUserComment =
 
 //--------------------------------------------------------------
 export const addUserPost =
-  (namePhoto, nameLocation, location = "", urlImage) =>
+  (namePhoto, nameLocation, location = "", imageURL) =>
   async (dispatch, getState) => {
     const uid = auth.currentUser?.uid;
     await addDoc(collection(db, "posts"), {
       uid,
       namePhoto,
-      urlImage,
+      imageURL,
       nameLocation,
       location,
       comments: [],

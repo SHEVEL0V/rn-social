@@ -1,24 +1,14 @@
 /** @format */
-import * as ImagePicker from "expo-image-picker";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadString,
-  getDownloadURL,
-} from "firebase/storage";
 import { useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
 import Btn from "../../components/button/button";
 import BtnNavigate from "../../components/button/btnNavigate";
 import Container from "../../components/container";
 import { useDispatch } from "react-redux";
-import { addUserPost, storage } from "../../redux/posts/operations";
+import { addUserPost } from "../../redux/posts/operations";
 import CameraCont from "../../components/camera";
 import BtnDelete from "../../components/button/btnDelete";
-import img from "../../image/pexels-photo-1563356.jpeg";
-import { async } from "@firebase/util";
-import { uploadImage } from "../../firebase/operations";
+import { uploadImage } from "../../firebase/operationsStore";
 
 const CreatePostsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -31,8 +21,8 @@ const CreatePostsScreen = ({ navigation }) => {
 
   const cteatePost = async () => {
     if (isActive()) {
-      const urlImage = await uploadImage(photo);
-      dispatch(addUserPost(namePhoto, nameLocation, location, urlImage));
+      const imageURL = await uploadImage(photo);
+      dispatch(addUserPost(namePhoto, nameLocation, location, imageURL));
       removePost();
       navigation.navigate("Home", { screen: "Posts" });
     }
@@ -46,7 +36,7 @@ const CreatePostsScreen = ({ navigation }) => {
   };
 
   return (
-    <Container>
+    <Container margin={true}>
       <CameraCont setLocation={setLocation} setPhoto={setPhoto} photo={photo} />
       <TextInput
         style={styles.input}

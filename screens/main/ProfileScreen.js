@@ -2,9 +2,9 @@
 
 import { StyleSheet, View, ImageBackground } from "react-native";
 import Posts from "../../components/posts";
-import Avatar from "../../components/avatar";
 import BtnQuit from "../../components/button/btnQuit";
 import bgImage from "../../assets/PhotoBG.png";
+import AvatarUser from "../../components/avatarUser";
 
 const ProfileScreen = ({ navigation }) => {
   return (
@@ -14,7 +14,7 @@ const ProfileScreen = ({ navigation }) => {
     >
       <View style={styles.container}>
         <BtnQuit style={styles.outBtn} />
-        <Avatar />
+        <AvatarUser />
         <Posts navigation={navigation} like={true} />
       </View>
     </ImageBackground>

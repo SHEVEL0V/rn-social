@@ -23,7 +23,7 @@ const Posts = ({ navigation, like }) => {
   );
   return (
     <FlatList
-      style={{ marginTop: 10, marginHorizontal: -16 }}
+      style={{ marginTop: 10 }}
       data={posts}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}

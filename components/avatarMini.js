@@ -20,9 +20,14 @@ const AvatarMini = ({ navigation }) => {
         navigation.navigate("CreatePost");
       }}
     >
-      <ImageBackground style={styles.avatarContainer}></ImageBackground>
+      <ImageBackground
+        style={styles.avatarContainer}
+        source={{ url: photoURL }}
+      ></ImageBackground>
       <View>
-        <Text style={styles.text}>{displayName}</Text>
+        <Text style={{ ...styles.text, fontWeight: "bold" }}>
+          {displayName}
+        </Text>
         <Text style={styles.text}>{email}</Text>
       </View>
     </TouchableOpacity>
@@ -39,10 +44,12 @@ const styles = StyleSheet.create({
   avatarContainer: {
     width: 60,
     height: 60,
+    overflow: "hidden",
     borderRadius: 16,
     backgroundColor: "#4B596D",
   },
   text: {
     marginLeft: 10,
+    fontSize: 13,
   },
 });

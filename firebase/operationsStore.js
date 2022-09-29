@@ -1,6 +1,5 @@
 /** @format */
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
-import uuid from "uuid";
 import { storage } from "./config";
 
 export const uploadImage = async (uri) => {
@@ -17,11 +16,12 @@ export const uploadImage = async (uri) => {
     xhr.send(null);
   });
 
-  const fileRef = ref(storage, `img/${111}`);
+  const id = Date.now();
+  const fileRef = ref(storage, `img/${id}`);
   const result = await uploadBytes(fileRef, blob);
 
   // We're done with the blob, close and release it
   blob.close();
-
+  console.log("upload Image Ok");
   return await getDownloadURL(fileRef);
 };

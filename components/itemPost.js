@@ -7,14 +7,14 @@ import Container from "./container";
 import BtnLike from "./button/btnLike";
 
 const ItemPost = ({ navigation, data, posts, like = false }) => {
-  const { namePhoto, id, nameLocation, location, urlImage } = data;
+  const { namePhoto, id, nameLocation, location, imageURL } = data;
 
   const post = posts.filter((el) => el.id === id);
   const qty = post[0].comments.length;
 
   return (
     <Container>
-      <ImageBackground style={styles.img} source={{ uri: urlImage }} />
+      <ImageBackground style={styles.img} source={{ url: imageURL }} />
       <Text style={styles.name}>{namePhoto}</Text>
       <View style={styles.postContainer}>
         <BtnPost
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 8,
   },
-  name: { marginTop: 8, color: "#212121", fontSize: 16 },
+  name: { marginTop: 8, color: "#212121", fontSize: 16, fontWeight: "bold" },
   postContainer: {
     flexDirection: "row",
     alignItems: "center",

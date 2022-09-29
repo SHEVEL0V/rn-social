@@ -1,51 +1,51 @@
 /** @format */
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
-import Avatar from "./avatar";
+import { StyleSheet, Text, View } from "react-native";
 import Btn from "./button/button";
 import { useDispatch } from "react-redux";
 import { signUpUser } from "../redux/auth/operations";
+import Input from "./input";
+import AvatarSign from "./avatarSign";
 
 const FormRegistration = ({ navigation, isFocus, setIsFocus }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [photoUri, setPhotoUri] = useState("");
   const [isSecure, setIsSecure] = useState(true);
   const dispatch = useDispatch();
 
   const onRegister = () => {
     if ((name !== "", email !== "", password !== ""))
-      dispatch(signUpUser({ email, password, name }));
+      dispatch(signUpUser({ email, password, name, photoUri }));
   };
 
   return (
-    <View style={{ ...styles.container, paddingBottom: isFocus ? 190 : 60 }}>
-      <Avatar />
+    <View style={{ ...styles.container, paddingBottom: isFocus ? 30 : 60 }}>
+      <AvatarSign photoUri={photoUri} setPhotoUri={setPhotoUri} />
       <Text style={styles.title}>Регистрация</Text>
       <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          onFocus={() => setIsFocus(true)}
+        <Input
+          onFocus={setIsFocus}
           placeholder="Логин"
           value={name}
           onChangeText={(value) => setName(value)}
         />
-        <TextInput
-          style={styles.input}
-          onFocus={() => setIsFocus(true)}
+        <Input
+          onFocus={setIsFocus}
           placeholder="Адрес электронной почты"
-          autoComplete="email"
+          autoCompleteType="email"
           value={email}
           onChangeText={(value) => setEmail(value)}
         />
         <View style={styles.containerPass}>
-          <TextInput
-            style={{ ...styles.input, marginBottom: 43 }}
-            onFocus={() => setIsFocus(true)}
+          <Input
+            onFocus={setIsFocus}
             placeholder="Пароль"
             secureTextEntry={isSecure}
             value={password}
             onChangeText={(value) => setPassword(value)}
+            isSecure={isSecure}
           />
           <Btn
             onPress={() => setIsSecure(!isSecure)}
@@ -58,18 +58,22 @@ const FormRegistration = ({ navigation, isFocus, setIsFocus }) => {
             }}
           />
         </View>
-        <Btn
-          onPress={onRegister}
-          title={"Зарегистрироваться"}
-          style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
-        />
-        <Btn
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-          title={"Уже есть аккаунт? Войти"}
-          style={{ color: "#1B4371" }}
-        />
+        {isFocus || (
+          <View style={{ marginTop: 43 }}>
+            <Btn
+              onPress={onRegister}
+              title={"Зарегистрироваться"}
+              style={{ color: "#FFFFFF", backgroundColor: "#FF6C00" }}
+            />
+            <Btn
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+              title={"Уже есть аккаунт? Войти"}
+              style={{ color: "#1B4371" }}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -96,15 +100,5 @@ const styles = StyleSheet.create({
   },
   containerPass: {
     position: "reletave",
-  },
-  input: {
-    marginBottom: 15,
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: 8,
-    backgroundColor: "#F6F6F6",
-    borderColor: "#E8E8E8",
-    fontSize: 16,
-    color: "#212121",
   },
 });

@@ -1,8 +1,6 @@
 /** @format */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { signupUser, loginUser, outUser, isLoginUser } from "./operations";
-// import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuth: false,
@@ -24,10 +22,14 @@ export const authSlice = createSlice({
       state.isAuth = payload.isAuth;
       state.user = payload.user;
     },
+    updateUserProfile(state, { payload }) {
+      state.user = payload.user;
+    },
     out(state, { payload }) {
       state.isAuth = false;
     },
   },
 });
-export const { signap, login, authentication, out } = authSlice.actions;
+export const { signap, login, authentication, updateUserProfile, out } =
+  authSlice.actions;
 export default authSlice.reducer;
