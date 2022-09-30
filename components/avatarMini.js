@@ -17,7 +17,7 @@ const AvatarMini = ({ navigation }) => {
     <TouchableOpacity
       style={styles.button}
       onPress={() => {
-        navigation.navigate("CreatePost");
+        navigation.navigate("Profile");
       }}
     >
       <ImageBackground

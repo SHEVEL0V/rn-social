@@ -8,7 +8,7 @@ import { getUserComment, writeUserComment } from "../../redux/posts/operations";
 import InputComment from "../../components/inputComment";
 
 const CommentsScreen = ({ route }) => {
-  const [isActive, setisActive] = useState(false);
+  const keyboardStatus = useSelector((store) => store.optionals.keyboardStatus);
   const { comments: data, imageURL } = useSelector(
     (store) => store.userPosts.post
   );
@@ -21,20 +21,20 @@ const CommentsScreen = ({ route }) => {
 
   const addComment = (value) => {
     if (value === "") {
-      setisActive(false);
       Keyboard.dismiss();
       return;
     }
     dispatch(writeUserComment({ id, value, data }));
     dispatch(getUserComment(id));
+    Keyboard.dismiss();
   };
 
   const renderItem = ({ item }) => <ItemComment data={item} />;
 
   return (
-    <Container margin={true}>
+    <Container margin={true} addListener={true}>
       <ImageBackground source={{ uri: imageURL }} style={styles.img} />
-      {isActive || (
+      {keyboardStatus || (
         <FlatList
           style={{ marginTop: 32 }}
           data={data}
@@ -42,7 +42,7 @@ const CommentsScreen = ({ route }) => {
           keyExtractor={(item) => item.date}
         />
       )}
-      <InputComment setisActive={setisActive} addComment={addComment} />
+      <InputComment addComment={addComment} />
     </Container>
   );
 };

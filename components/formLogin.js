@@ -1,12 +1,13 @@
 /** @format */
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../redux/auth/operations";
 import { StyleSheet, Text, View } from "react-native";
 import Btn from "./button/button";
 import Input from "./input";
 
-const FormLogin = ({ navigation, setIsFocus, isFocus }) => {
+const FormLogin = ({ navigation }) => {
+  const keyboardStatus = useSelector((store) => store.optionals.keyboardStatus);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isSecure, setIsSecure] = useState(true);
@@ -19,12 +20,13 @@ const FormLogin = ({ navigation, setIsFocus, isFocus }) => {
   };
 
   return (
-    <View style={{ ...styles.container, paddingBottom: isFocus ? 0 : 120 }}>
+    <View
+      style={{ ...styles.container, paddingBottom: keyboardStatus ? 0 : 120 }}
+    >
       <Text style={styles.title}>Войти</Text>
       <View style={styles.form}>
         <Input
           style={{}}
-          onFocus={setIsFocus}
           placeholder="Адрес электронной почты"
           autoCompleteType="email"
           value={email}
@@ -33,7 +35,6 @@ const FormLogin = ({ navigation, setIsFocus, isFocus }) => {
         <View style={styles.containerPass}>
           <Input
             style={{}}
-            onFocus={() => setIsFocus(true)}
             placeholder="Пароль"
             autoCompleteType="password"
             value={password}
@@ -51,7 +52,7 @@ const FormLogin = ({ navigation, setIsFocus, isFocus }) => {
             }}
           />
         </View>
-        {isFocus || (
+        {keyboardStatus || (
           <View View style={{ marginTop: 43 }}>
             <Btn
               onPress={login}

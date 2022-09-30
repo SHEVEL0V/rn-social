@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import BtnAdd from "./button/btnAdd";
+import { useDispatch } from "react-redux";
+import { isOpenKeyboard } from "../redux/optionals/slice";
 
-const InputComment = ({ setisActive, addComment }) => {
+const InputComment = ({ addComment }) => {
   const [color, setColor] = useState("#E8E8E8");
   const [value, setValue] = useState("");
+  const dicpatch = useDispatch();
 
   return (
     <View style={{ ...styles.input, borderColor: color }}>
@@ -15,7 +18,7 @@ const InputComment = ({ setisActive, addComment }) => {
         value={value}
         onBlur={() => setColor("#E8E8E8")}
         onFocus={() => {
-          setisActive(true), setColor("#FF6C00");
+          dicpatch(isOpenKeyboard()), setColor("#FF6C00");
         }}
         onChangeText={(value) => setValue(value)}
       />

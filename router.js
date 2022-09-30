@@ -5,7 +5,6 @@ import { StyleSheet, View } from "react-native";
 import Home from "./screens/main/Home";
 import LoginScreen from "./screens/auth/loginScreen";
 import RegistrationScreen from "./screens/auth/registrationScreen";
-import PostsScreen from "./screens/main/PostsScreen";
 import CreatePostsScreen from "./screens/main/CreatePostsScreen";
 import ProfileScreen from "./screens/main/ProfileScreen";
 // icon
