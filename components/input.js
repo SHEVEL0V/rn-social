@@ -1,10 +1,11 @@
 /** @format */
 import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
+import { useDispatch } from "react-redux";
+import { isOpenKeyboard } from "../redux/optionals/slice";
 
 const Input = ({
   style,
-  onFocus,
   autoComplete = "",
   isSecure,
   onChangeText,
@@ -12,6 +13,7 @@ const Input = ({
   placeholder = "",
 }) => {
   const [color, setColor] = useState("#E8E8E8");
+  const dicpatch = useDispatch();
   return (
     <TextInput
       style={{
@@ -21,7 +23,7 @@ const Input = ({
       }}
       onBlur={() => setColor("#E8E8E8")}
       onFocus={() => {
-        onFocus(true), setColor("#FF6C00");
+        dicpatch(isOpenKeyboard()), setColor("#FF6C00");
       }}
       autoCompleteType={autoComplete}
       placeholder={placeholder}

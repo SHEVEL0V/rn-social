@@ -11,6 +11,7 @@ const CameraCont = ({ setLocation, setPhoto, photo }) => {
 
   const takePhoto = async () => {
     const { uri } = await camera.takePictureAsync();
+    await Location.requestForegroundPermissionsAsync();
     const { coords } = await Location.getCurrentPositionAsync({});
     setLocation(coords);
     setPhoto(uri);

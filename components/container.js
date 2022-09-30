@@ -1,8 +1,26 @@
 /** @format */
 
-import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { useEffect } from "react";
+import { KeyboardAvoidingView, Keyboard } from "react-native";
+import { useDispatch } from "react-redux";
+import { isOpenKeyboard, isCloseKeyboard } from "../redux/optionals/slice";
 
-const Container = ({ children, margin = false }) => {
+const Container = ({ children, margin = false, addListener = false }) => {
+  const dicpatch = useDispatch();
+  useEffect(() => {
+    if (addListener) {
+      const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+        dicpatch(isOpenKeyboard());
+      });
+      const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+        dicpatch(isCloseKeyboard());
+      });
+      return () => {
+        showSubscription.remove();
+        hideSubscription.remove();
+      };
+    }
+  }, []);
   return (
     <KeyboardAvoidingView
       style={{
@@ -19,7 +37,3 @@ const Container = ({ children, margin = false }) => {
 };
 
 export default Container;
-
-const styles = StyleSheet.create({
-  container: {},
-});

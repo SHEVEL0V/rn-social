@@ -2,12 +2,13 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Btn from "./button/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../redux/auth/operations";
 import Input from "./input";
 import AvatarSign from "./avatarSign";
 
-const FormRegistration = ({ navigation, isFocus, setIsFocus }) => {
+const FormRegistration = ({ navigation }) => {
+  const keyboardStatus = useSelector((store) => store.optionals.keyboardStatus);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -21,18 +22,18 @@ const FormRegistration = ({ navigation, isFocus, setIsFocus }) => {
   };
 
   return (
-    <View style={{ ...styles.container, paddingBottom: isFocus ? 30 : 60 }}>
+    <View
+      style={{ ...styles.container, paddingBottom: keyboardStatus ? 30 : 60 }}
+    >
       <AvatarSign photoUri={photoUri} setPhotoUri={setPhotoUri} />
       <Text style={styles.title}>Регистрация</Text>
       <View style={styles.form}>
         <Input
-          onFocus={setIsFocus}
           placeholder="Логин"
           value={name}
           onChangeText={(value) => setName(value)}
         />
         <Input
-          onFocus={setIsFocus}
           placeholder="Адрес электронной почты"
           autoCompleteType="email"
           value={email}
@@ -40,7 +41,6 @@ const FormRegistration = ({ navigation, isFocus, setIsFocus }) => {
         />
         <View style={styles.containerPass}>
           <Input
-            onFocus={setIsFocus}
             placeholder="Пароль"
             secureTextEntry={isSecure}
             value={password}
@@ -58,7 +58,7 @@ const FormRegistration = ({ navigation, isFocus, setIsFocus }) => {
             }}
           />
         </View>
-        {isFocus || (
+        {keyboardStatus || (
           <View style={{ marginTop: 43 }}>
             <Btn
               onPress={onRegister}
