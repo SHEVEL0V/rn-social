@@ -1,18 +1,23 @@
 /** @format */
 
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ImageBackground } from "react-native";
+import { useSelector } from "react-redux";
+import { getTime } from "../operations/date";
 
 const ItemComment = ({ data }) => {
-  const date = new Date(data.date);
-  const d = date.toUTCString();
+  const { photoURL } = useSelector((state) => state.userAuth.user);
+  const date = getTime(data.date);
 
   return (
     <View style={styles.container}>
       <View style={styles.commentContainer}>
         <Text style={styles.text}>{data.value}</Text>
-        <Text style={styles.time}>{d}</Text>
+        <Text style={styles.time}>{date}</Text>
       </View>
-      <View style={styles.logoContainer}></View>
+      <ImageBackground
+        source={{ url: photoURL }}
+        style={styles.avatar}
+      ></ImageBackground>
     </View>
   );
 };
@@ -25,7 +30,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 24,
   },
-  logoContainer: {
+  avatar: {
+    overflow: "hidden",
     marginLeft: 16,
     width: 28,
     height: 28,
