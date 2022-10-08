@@ -1,4 +1,4 @@
-/** @format */
+s/** @format */
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Btn from "./button/button";

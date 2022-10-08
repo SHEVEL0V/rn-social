@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { keyboardStatus: false };
 
-const optionalsdSlise = createSlice({
+const optionalSlice = createSlice({
   name: "options",
   initialState,
   reducers: {
@@ -17,6 +17,6 @@ const optionalsdSlise = createSlice({
   },
 });
 
-export const { isOpenKeyboard, isCloseKeyboard } = optionalsdSlise.actions;
+export const { isOpenKeyboard, isCloseKeyboard } = optionalSlice.actions;
 
-export default optionalsdSlise.reducer;
+export default optionalSlice.reducer;
