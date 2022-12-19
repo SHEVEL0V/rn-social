@@ -1,8 +1,8 @@
 /** @format */
 
 import { Provider } from "react-redux";
-import Main from "./main";
-import { store } from "./redux/store";
+import Main from "./src/main";
+import { store } from "./src/redux/store";
 
 export default function App() {
   return (
