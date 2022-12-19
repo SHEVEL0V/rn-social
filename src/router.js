@@ -2,11 +2,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, View } from "react-native";
-import Home from "./screens/main/Home";
+import Home from "./screens/main/home";
 import LoginScreen from "./screens/auth/loginScreen";
 import RegistrationScreen from "./screens/auth/registrationScreen";
-import CreatePostsScreen from "./screens/main/CreatePostsScreen";
-import ProfileScreen from "./screens/main/ProfileScreen";
+import CreatePostsScreen from "./screens/main/createPostsScreen";
+import ProfileScreen from "./screens/main/profileScreen";
 // icon
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";

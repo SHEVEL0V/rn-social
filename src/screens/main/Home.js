@@ -2,8 +2,8 @@
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import MapScreen from "./MapScreen";
-import PostsScreen from "./PostsScreen";
+import MapScreen from "./mapScreen";
+import PostsScreen from "./postsScreen";
 import CommentsScreen from "./CommentsScreen";
 import BtnQuit from "../../components/button/btnQuit";
 import { outUser } from "../../redux/auth/operations";
