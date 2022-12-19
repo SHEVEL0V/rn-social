@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import MapScreen from "./mapScreen";
 import PostsScreen from "./postsScreen";
-import CommentsScreen from "./CommentsScreen";
+import CommentsScreen from "./commentsScreen";
 import BtnQuit from "../../components/button/btnQuit";
 import { outUser } from "../../redux/auth/operations";
 import { useDispatch } from "react-redux";
@@ -39,7 +39,7 @@ const Home = () => {
         name="Comments"
         component={CommentsScreen}
         options={{
-          title: "Комментарии",
+          title: "Коментарии",
           headerBackTitleVisible: false,
         }}
       />
