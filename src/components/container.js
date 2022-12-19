@@ -6,15 +6,16 @@ import { useDispatch } from "react-redux";
 import { isOpenKeyboard, isCloseKeyboard } from "../redux/optionals/slice";
 
 const Container = ({ children, margin = false, addListener = false }) => {
-  const dicpatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (addListener) {
       const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-        dicpatch(isOpenKeyboard());
+        dispatch(isOpenKeyboard());
       });
       const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-        dicpatch(isCloseKeyboard());
+        dispatch(isCloseKeyboard());
       });
+
       return () => {
         showSubscription.remove();
         hideSubscription.remove();

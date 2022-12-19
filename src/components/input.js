@@ -13,7 +13,7 @@ const Input = ({
   placeholder = "",
 }) => {
   const [color, setColor] = useState("#E8E8E8");
-  const dicpatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <TextInput
       style={{
@@ -23,7 +23,7 @@ const Input = ({
       }}
       onBlur={() => setColor("#E8E8E8")}
       onFocus={() => {
-        dicpatch(isOpenKeyboard()), setColor("#FF6C00");
+        dispatch(isOpenKeyboard()), setColor("#FF6C00");
       }}
       autoCompleteType={autoComplete}
       placeholder={placeholder}

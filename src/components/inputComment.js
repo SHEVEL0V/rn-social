@@ -9,7 +9,7 @@ import { isOpenKeyboard } from "../redux/optionals/slice";
 const InputComment = ({ addComment }) => {
   const [color, setColor] = useState("#E8E8E8");
   const [value, setValue] = useState("");
-  const dicpatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <View style={{ ...styles.input, borderColor: color }}>
@@ -18,7 +18,7 @@ const InputComment = ({ addComment }) => {
         value={value}
         onBlur={() => setColor("#E8E8E8")}
         onFocus={() => {
-          dicpatch(isOpenKeyboard()), setColor("#FF6C00");
+          dispatch(isOpenKeyboard()), setColor("#FF6C00");
         }}
         onChangeText={(value) => setValue(value)}
       />

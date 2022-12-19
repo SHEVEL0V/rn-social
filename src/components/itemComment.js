@@ -2,7 +2,7 @@
 
 import { View, StyleSheet, Text, ImageBackground } from "react-native";
 import { useSelector } from "react-redux";
-import { getTime } from "../operations/date";
+import { getTime } from "../helpers/date";
 
 const ItemComment = ({ data }) => {
   const { photoURL } = useSelector((state) => state.userAuth.user);
