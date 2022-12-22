@@ -14,10 +14,6 @@ export const authSlice = createSlice({
     signap(state, { payload }) {
       state.isAuth = payload.isAuth;
     },
-    login(state, { payload }) {
-      state.isAuth = payload.isAuth;
-      state.user = payload.user;
-    },
     authentication(state, { payload }) {
       state.isAuth = payload.isAuth;
       state.user = payload.user;
@@ -25,11 +21,11 @@ export const authSlice = createSlice({
     updateUserProfile(state, { payload }) {
       state.user = payload.user;
     },
-    out(state, { payload }) {
+    out(state) {
       state.isAuth = false;
     },
   },
 });
-export const { signap, login, authentication, updateUserProfile, out } =
+export const { signap, authentication, updateUserProfile, out } =
   authSlice.actions;
 export default authSlice.reducer;

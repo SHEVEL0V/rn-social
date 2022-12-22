@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { uploadImage } from "../../firebase/operationsStore";
-import { signap, login, authentication, updateUserProfile, out } from "./slice";
+import { signap, authentication, updateUserProfile, out } from "./slice";
 
 //-------------------------------------------------------------------------
 export const signUpUser =
@@ -32,7 +32,10 @@ export const signInUser =
     signInWithEmailAndPassword(auth, email, password).then(({ user }) => {
       const { displayName, photoURL, email, uid } = user;
       dispatch(
-        login({ isAuth: true, user: { displayName, photoURL, email, uid } })
+        authentication({
+          isAuth: true,
+          user: { displayName, photoURL, email, uid },
+        })
       );
     });
   };
